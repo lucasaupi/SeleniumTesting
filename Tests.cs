@@ -6,7 +6,7 @@ namespace TestsProject
         private readonly string user = Environment.GetEnvironmentVariable("ORT_USER") ?? "ORT_USER";
         private readonly string password = Environment.GetEnvironmentVariable("ORT_PASSWORD") ?? "ORT_PASSWORD";
         private readonly string ort = Environment.GetEnvironmentVariable("ORT_URL") ?? "ort_url";
-        private readonly string w3 = "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_confirm";
+        private readonly string W3 = Environment.GetEnvironmentVariable("ORT_URL") ?? "W3_URL";
 
         [Test]
         public void TestOrt()
