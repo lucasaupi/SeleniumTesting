@@ -3,9 +3,9 @@ namespace TestsProject
     [TestFixture]
     public class Tests : TestBase
     {
-        private readonly string user = "";
-        private readonly string password = "";
-        private readonly string ort = "https://aulavirtual.instituto.ort.edu.ar/";
+        private readonly string user = Environment.GetEnvironmentVariable("ORT_USER") ?? "ORT_USER";
+        private readonly string password = Environment.GetEnvironmentVariable("ORT_PASSWORD") ?? "ORT_PASSWORD";
+        private readonly string ort = Environment.GetEnvironmentVariable("ORT_URL") ?? "ort_url";
         private readonly string w3 = "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_confirm";
 
         [Test]
