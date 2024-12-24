@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
 using Selenium;
 
 namespace TestsProject

@@ -1,6 +1,3 @@
-using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V129.Network;
-
 namespace TestsProject
 {
     [TestFixture]

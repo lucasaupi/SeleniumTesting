@@ -16,15 +16,15 @@ namespace TestsProject
             return driver;
         }
         public static void GoToPage(string url)
-        { 
+        {
             GetDriver().Navigate().GoToUrl(url);
         }
-        public static WebDriverWait Waiting (int timeout = 10) 
+        public static WebDriverWait Waiting(int timeout = 10)
         {
             return new WebDriverWait(GetDriver(), TimeSpan.FromSeconds(timeout));
         }
-        
-        public static IWebElement FindElement (By locator)
+
+        public static IWebElement FindElement(By locator)
         {
             if (elementCache.ContainsKey(locator))
             {
@@ -34,18 +34,18 @@ namespace TestsProject
             elementCache[locator] = element;
             return element;
         }
-        public static void ViewTheElement (IWebElement element)
+        public static void ViewTheElement(IWebElement element)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)GetDriver();
             js.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });", element);
         }
-        public static void ViewTheElement (By locator)
+        public static void ViewTheElement(By locator)
         {
             IWebElement element = WaitUntilVisible(locator);
             IJavaScriptExecutor js = (IJavaScriptExecutor)GetDriver();
             js.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });", element);
         }
-        public static bool IsElementVisible (this By locator, int timeout = 10)
+        public static bool IsElementVisible(this By locator, int timeout = 10)
         {
             bool result = false;
             try
@@ -53,7 +53,7 @@ namespace TestsProject
                 Waiting(timeout).Until(ExpectedConditions.ElementIsVisible(locator));
                 result = true;
             }
-            catch (WebDriverTimeoutException ) { Debug.WriteLine($"Timeout exception: Element with selector {locator} was not visible after {timeout} seconds."); }
+            catch (WebDriverTimeoutException) { Debug.WriteLine($"Timeout exception: Element with selector {locator} was not visible after {timeout} seconds."); }
             return result;
         }
 
@@ -68,9 +68,9 @@ namespace TestsProject
             WebDriverWait wait = Waiting(timeout);
             wait.Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt(id));
         }
-        
+
         public static void SelectOptionByText(this By locator, string text)
-        { 
+        {
             new SelectElement(WaitUntilVisible(locator)).SelectByText(text);
         }
         public static void SelectOptionByText(this IWebElement element, string text)
