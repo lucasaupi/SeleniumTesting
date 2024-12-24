@@ -1,11 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestsProject
 {
@@ -16,6 +11,12 @@ namespace TestsProject
             IWebElement element = Waiting(timeout).Until(ExpectedConditions.ElementToBeClickable(locator));
             ViewTheElement(element);
             return element;
+        }
+        public static IWebElement WaitUntilClickeable(this IWebElement element, int timeout = 10)
+        {
+            IWebElement clickeableElement = Waiting(timeout).Until(ExpectedConditions.ElementToBeClickable(element));
+            ViewTheElement(clickeableElement);
+            return clickeableElement;
         }
         public static IWebElement WaitUntilVisible(this By locator, int timeout = 10)
         {

@@ -15,7 +15,6 @@ namespace TestsProject
             Actions.GoToPage(ort);
             LogIn(user, password);
 
-            if (locators.OpenPanel.IsElementVisible()) locators.OpenPanel.WaitUntilClickeable().Click();
             locators.ProgramacionDos.WaitUntilClickeable().Click();
             Actions.ViewTheElement(locators.EvaluacionesGenerales);
             locators.EvaluacionesGenerales.WaitUntilClickeable().Click();
@@ -43,8 +42,8 @@ namespace TestsProject
             Actions.WaitUntilClickeable(locators.AccederDos).Click();
             string text = Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id");
             Assert.IsTrue(Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id").Equals("username"));
-            Actions.WaitUntilClickeable(locators.UserName).SendKeys(user);
-            Actions.WaitUntilClickeable(locators.Password).SendKeys(password);
+            locators.UserName.SendKeys(user);
+            locators.Password.SendKeys(password);
             locators.LogInButton.WaitUntilClickeable().Click();
         }
     }

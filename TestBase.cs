@@ -13,7 +13,7 @@ namespace TestsProject
         {
             driver = new ChromeDriver();
             Actions.driver = driver;
-            locators = new Locators();
+            locators = new Locators(driver);
             driver.Manage().Window.Maximize();
         }
 
