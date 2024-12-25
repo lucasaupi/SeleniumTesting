@@ -1,16 +1,18 @@
+using System.Diagnostics;
+
 namespace TestsProject
 {
     [TestFixture]
     public class Tests : TestBase
     {
-        private readonly string user = Environment.GetEnvironmentVariable("ORT_USER") ?? "ORT_USER";
-        private readonly string password = Environment.GetEnvironmentVariable("ORT_PASSWORD") ?? "ORT_PASSWORD";
-        private readonly string ort = Environment.GetEnvironmentVariable("ORT_URL") ?? "ort_url";
-        private readonly string w3 = Environment.GetEnvironmentVariable("ORT_URL") ?? "W3_URL";
-
         [Test]
         public void TestOrt()
         {
+            //Debug.WriteLine($"ort_user: {Environment.GetEnvironmentVariable("ORT_USERNAME")}");
+
+            var user = Environment.GetEnvironmentVariable("ORT_USERNAME") ?? "ORT_USER";
+            var password = Environment.GetEnvironmentVariable("ORT_PASSWORD") ?? "ORT_PASSWORD";
+            var ort = Environment.GetEnvironmentVariable("ORT_URL") ?? "TEST";
 
             Actions.GoToPage(ort);
             LogIn(user, password);
@@ -19,7 +21,6 @@ namespace TestsProject
             Actions.ViewTheElement(locators.EvaluacionesGenerales);
             locators.EvaluacionesGenerales.WaitUntilClickeable().Click();
             Actions.ViewTheElement(locators.SimulacroParcial);
-            //Actions.ViewTheElement(selectors.SegundoFinal);
             locators.SegundoFinal.WaitUntilClickeable().Click();
             Actions.Sleep();
         }
@@ -28,6 +29,7 @@ namespace TestsProject
         public void TestW3()
         {
 
+            var w3 = Environment.GetEnvironmentVariable("W3_URL") ?? "W3_URL";
             Actions.GoToPage(w3);
             //Actions.WaitUntilVisible(selectors.TextArea).Clear();
             Actions.SwitchToFrame(locators.IFrame);
@@ -40,7 +42,7 @@ namespace TestsProject
         private void LogIn(string user, string password)
         {
             Actions.WaitUntilClickeable(locators.AccederDos).Click();
-            string text = Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id");
+            var text = Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id");
             Assert.IsTrue(Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id").Equals("username"));
             locators.UserName.SendKeys(user);
             locators.Password.SendKeys(password);
