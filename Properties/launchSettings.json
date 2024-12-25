@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "TestsProject": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ORT_USER": "usuario",
+        "ORT_PASSWORD": "contraseña",
+        "ORT_URL": "https://aulavirtual.instituto.ort.edu.ar/",
+        "W3_URL": "https://w3.example.com"
+      }
+    }
+  }
+}
