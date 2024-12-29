@@ -38,7 +38,45 @@ namespace TestsProject
             Actions.WaitForAlertsAndConfirm();
 
         }
+        [Test]
+        public void Ciudadania()
+        {
+            Actions.GoToPage("https://prenotami.esteri.it/");
+            Actions.WaitLoadFullPage();
+            var mail = Environment.GetEnvironmentVariable("MAIL") ?? "MAIL";
+            var password = Environment.GetEnvironmentVariable("PASSWORD") ?? "PASS";
+            Actions.WaitUntilVisible(locators.LoginEmail).SendKeys(mail);
+            Actions.WaitUntilVisible(locators.LoginPassword).SendKeys(password);
+            Actions.WaitUntilClickeable(locators.Avanti).Click();
+            locators.SpanishLanguage.WaitUntilClickeable().Click();
+            locators.Reservas.WaitUntilClickeable().Click();
+            locators.ReservarTurno.WaitUntilClickeable().Click();
 
+            var encontreLugar = false; int i = 0;
+            while (!encontreLugar && i < 200)
+            {
+                try
+                {
+                    var okButton = Actions.WaitUntilVisible(locators.BotonOk, 20);
+                    okButton.WaitUntilClickeable().Click();
+                    Actions.Sleep();
+                    Actions.Refresh();
+                    Actions.WaitUntilClickeable(locators.ReservarTurno, 15).Click();
+                    i++;
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("RESERVA DISPONIBLE");
+                    encontreLugar = true;
+                }
+
+            }
+            Actions.Sleep(2);
+            //var popUp = Actions.WaitUntilVisible(locators.PopUp, 20);
+            //string text = popUp.Text;
+            //Assert.IsTrue(text.Equals("Sorry, all appointments for this service are currently booked.Please check again tomorrow for cancellations or new appointments."));
+
+        }
         private void LogIn(string user, string password)
         {
             Actions.WaitUntilClickeable(locators.AccederDos).Click();

@@ -73,9 +73,15 @@ namespace TestsProject
         {
             new SelectElement(WaitUntilVisible(locator)).SelectByText(text);
         }
-        public static void SelectOptionByText(this IWebElement element, string text)
+        public static void Refresh()
         {
-            new SelectElement(element).SelectByText(text);
+            GetDriver().Navigate().Refresh();
+            WaitLoadFullPage();
+
+        }
+        public static void WaitLoadFullPage(int wait = 30)
+        {
+            Waiting(wait).Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
         }
 
     }

@@ -21,6 +21,7 @@ namespace TestsProject
         public static IWebElement WaitUntilVisible(this By locator, int timeout = 10)
         {
             IWebElement element = Waiting(timeout).Until(ExpectedConditions.ElementIsVisible(locator));
+            ViewTheElement(element);
             return element;
         }
 
