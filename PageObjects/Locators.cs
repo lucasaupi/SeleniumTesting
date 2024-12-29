@@ -23,6 +23,16 @@ namespace Selenium
         public readonly By ButtonInFrame = By.CssSelector("button[onclick='myFunction()']");
         public readonly By Options = By.Id("options");
         public readonly By TextArea = By.Id("textareaCode");
+        // Prenotami
+        public readonly By SpanishLanguage = By.PartialLinkText("SPA");
+        public readonly By Reservas = By.Id("advanced");
+        public readonly By ReservarTurno = By.CssSelector("#dataTableServices > tbody > tr:nth-child(2) > td:nth-child(4) > a > button");
+        public readonly By PopUp = By.XPath("//div[@id='jconfirm-box27203']/div");
+        public readonly By PopUpContainer = By.CssSelector("body > div.jconfirm.jconfirm-light.jconfirm-open > div.jconfirm-scrollpane > div > div > div > div > div > div > div");
+        public readonly By BotonOk = By.XPath("//button[@type='button' and @class='btn btn-blue' and text()='ok']");
+        public readonly By LoginEmail = By.Id("login-email");
+        public readonly By LoginPassword = By.Id("login-password");
+        public readonly By Avanti = By.XPath("//button[@type='submit' and contains(@class, 'button primary') and text()='Avanti']");
 
 
     }

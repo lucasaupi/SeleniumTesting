@@ -8,17 +8,20 @@ namespace TestsProject
     {
         private ChromeDriver driver;
         protected Locators locators;
+        private readonly string path = @"C:\Users\lucas\source\repos\TestsProject\EnvironmentVariables\Variables.env";
 
         [SetUp]
         public void SetUp()
         {
-            driver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.AddArguments("--start-maximized");
+            //options.AddArguments("--blink-settings=imagesEnabled=false");
+            //options.AddArguments("--headless");
+            driver = new ChromeDriver(options);
             Actions.driver = driver;
             locators = new Locators(driver);
             driver.Manage().Window.Maximize();
-            var path = @"C:\Users\lucas\source\repos\TestsProject\EnvironmentVariables\Variables.env";
             Env.Load(path);
-
         }
 
         [TearDown]
