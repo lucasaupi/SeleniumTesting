@@ -1,3 +1,4 @@
+using OpenQA.Selenium;
 using System.Diagnostics;
 
 namespace TestsProject
@@ -5,24 +6,45 @@ namespace TestsProject
     [TestFixture]
     public class Tests : TestBase
     {
-        [Test]
-        public void TestOrt()
+        [TestCase("PF")]
+        [TestCase("P3")]
+        [TestCase("TP3")]
+        [TestCase("CalidadSoftware")]
+        public void AsistORT(string materia)
         {
-            //Debug.WriteLine($"ort_user: {Environment.GetEnvironmentVariable("ORT_USERNAME")}");
-
             var user = Environment.GetEnvironmentVariable("ORT_USERNAME") ?? "ORT_USER";
             var password = Environment.GetEnvironmentVariable("ORT_PASSWORD") ?? "ORT_PASSWORD";
             var ort = Environment.GetEnvironmentVariable("ORT_URL") ?? "TEST";
 
             Actions.GoToPage(ort);
             LogIn(user, password);
+            //Actions.ViewTheElement(locators.PanelDerecho);
+            //locators.PanelDerecho.WaitUntilClickeable().Click();
+            SeleccionarMateria(materia);
 
-            locators.ProgramacionDos.WaitUntilClickeable().Click();
-            Actions.ViewTheElement(locators.EvaluacionesGenerales);
-            locators.EvaluacionesGenerales.WaitUntilClickeable().Click();
-            Actions.ViewTheElement(locators.SimulacroParcial);
-            locators.SegundoFinal.WaitUntilClickeable().Click();
-            Actions.Sleep();
+            Actions.ViewTheElement(locators.Asistencia);
+            locators.Asistencia.WaitUntilClickeable().Click();
+            Actions.ViewTheElement(locators.EnviarAsistencia);
+            locators.EnviarAsistencia.WaitUntilClickeable().Click();
+            Actions.ViewTheElement(locators.Present);
+            locators.Present.WaitUntilClickeable().Click();
+            Actions.ViewTheElement(locators.GuardarAsistencia);
+            locators.GuardarAsistencia.WaitUntilClickeable().Click();
+            Actions.Sleep(2);
+        }
+
+        private void SeleccionarMateria( string materiaKey)
+        {
+            By materia = materiaKey switch
+            {
+                "PF" => locators.ProyectoFinal,
+                "P3" => locators.Programacion3,
+                "TP3" => locators.TallerProgramacion3,
+                "CalidadSoftware" => locators.CalidadSoftware,
+                _ => throw new ArgumentException($"Materia '{materiaKey}' no reconocida")
+            };
+            Actions.ViewTheElement(materia);
+            materia.WaitUntilClickeable().Click();
         }
 
         [Test]
