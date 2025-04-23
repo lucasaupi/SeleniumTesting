@@ -22,6 +22,8 @@ namespace TestsProject
             //locators.PanelDerecho.WaitUntilClickeable().Click();
             SeleccionarMateria(materia);
 
+            //Actions.ViewTheElement(locators.PanelIzquierdo);
+            //locators.PanelIzquierdo.WaitUntilClickeable().Click();
             Actions.ViewTheElement(locators.Asistencia);
             locators.Asistencia.WaitUntilClickeable().Click();
             Actions.ViewTheElement(locators.EnviarAsistencia);
@@ -33,7 +35,7 @@ namespace TestsProject
             Actions.Sleep(2);
         }
 
-        private void SeleccionarMateria( string materiaKey)
+        private void SeleccionarMateria(string materiaKey)
         {
             By materia = materiaKey switch
             {

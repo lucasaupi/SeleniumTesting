@@ -17,9 +17,9 @@ namespace Selenium
         // Paneles y sus botones y asistencia
         public readonly By PanelDerecho = By.XPath("//button[@class='btn icon-no-margin' and @title='Abrir cajón de bloques']");
         public readonly By PanelIzquierdo = By.XPath("//button[@class='btn icon-no-margin' and @data-original-title='Abrir índice del curso']");
-        public readonly By Asistencia = By.PartialLinkText("Asistencia");
+        public readonly By Asistencia = By.XPath("//a[contains(@class, 'courseindex-link') and normalize-space()='Asistencia']");
         public readonly By EnviarAsistencia = By.PartialLinkText("Enviar asistencia");
-        public readonly By Present = By.Id("id_status_9921");
+        public readonly By Present = By.XPath("//input[@type='radio' and @name='status' and parent::label[.//span[normalize-space()='Present']]]");
         public readonly By GuardarAsistencia = By.Id("id_submitbutton");
         // Materias
         public readonly By Programacion3 = By.PartialLinkText("PR3-2025-1");
