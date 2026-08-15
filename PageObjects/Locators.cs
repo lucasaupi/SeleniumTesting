@@ -11,8 +11,8 @@ namespace Selenium
             this.driver = driver;
         }
         public readonly By AccederDos = By.XPath("//div[@class='usermenu']//span[@class='login pl-2']//a[text()='Log in']");
-        public IWebElement UserName => Actions.WaitUntilClickeable(By.Id("username"));
-        public IWebElement Password => Actions.WaitUntilClickeable(By.Id("password"));
+        public IWebElement UserName => Actions.WaitUntilClickable(By.Id("username"));
+        public IWebElement Password => Actions.WaitUntilClickable(By.Id("password"));
         public readonly By LogInButton = By.Id("loginbtn");
         // Paneles y sus botones y asistencia
         public readonly By PanelDerecho = By.XPath("//button[@class='btn icon-no-margin' and @title='Abrir cajón de bloques']");

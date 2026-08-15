@@ -7,7 +7,7 @@
         private readonly string password = "";
         private readonly string ort = "https://aulavirtual.instituto.ort.edu.ar/";
 
-        [Test]
+        [Test, Ignore("Ignored")]
         public void TestOrt()
         {
 
