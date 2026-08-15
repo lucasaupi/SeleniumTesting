@@ -1,50 +1,116 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 
 namespace TestsProject
 {
     public static partial class Actions
     {
-        public static IWebElement WaitUntilClickeable(this By locator, int timeout = 10)
+        public static IWebElement WaitUntilClickable(this By locator, int timeout = 10)
         {
-            IWebElement element = Waiting(timeout).Until(ExpectedConditions.ElementToBeClickable(locator));
-            ViewTheElement(element);
-            return element;
-        }
-        public static IWebElement WaitUntilClickeable(this IWebElement element, int timeout = 10)
-        {
-            IWebElement clickeableElement = Waiting(timeout).Until(ExpectedConditions.ElementToBeClickable(element));
-            ViewTheElement(clickeableElement);
-            return clickeableElement;
-        }
-        public static IWebElement WaitUntilVisible(this By locator, int timeout = 10)
-        {
-            IWebElement element = Waiting(timeout).Until(ExpectedConditions.ElementIsVisible(locator));
-            ViewTheElement(element);
-            return element;
+            if (locator == null) throw new ArgumentNullException(nameof(locator));
+            try
+            {
+                var element = Waiting(timeout).Until(driver =>
+                {
+                    try
+                    {
+                        var el = driver.FindElement(locator);
+                        return (el.Displayed && el.Enabled) ? el : null;
+                    }
+                    catch (NoSuchElementException) { return null; }
+                    catch (StaleElementReferenceException) { return null; }
+                });
+                if (element == null) throw new WebDriverTimeoutException($"Timed out after {timeout}s waiting for element {locator} to be clickable.");
+                return element;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Unexpected error while waiting for element {locator} to be clickable.", ex);
+            }
         }
 
-        public static void Sleep(int timeout = 1)
+        public static IWebElement WaitUntilClickable(this IWebElement element, int timeout = 10)
         {
-            Thread.Sleep(timeout * 1000);
-        }
-        public static void Sleep(double timeout)
-        {
-            Thread.Sleep(Convert.ToInt32(timeout * 1000));
-        }
-        public static void WaitForAlertsAndConfirm(int cant = 1)
-        {
-            for (int i = 0; i < cant; i++)
+            if (element == null) throw new ArgumentNullException(nameof(element));
+            try
             {
-                try
+                var result = Waiting(timeout).Until(driver =>
                 {
-                    WebDriverWait wait = Waiting();
-                    wait.Until(ExpectedConditions.AlertIsPresent());
-                    IAlert alert = GetDriver().SwitchTo().Alert();
-                    alert.Accept();
-                }
-                catch (NoAlertPresentException) { }
+                    try
+                    {
+                        return (element.Displayed && element.Enabled) ? element : null;
+                    }
+                    catch (StaleElementReferenceException) { return null; }
+                });
+                if (result == null) throw new WebDriverTimeoutException($"Timed out after {timeout}s waiting for provided IWebElement to be clickable.");
+                return result;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unexpected error while waiting for provided IWebElement to be clickable.", ex);
+            }
+        }
+
+        public static IWebElement WaitUntilVisible(this By locator, int timeout = 10)
+        {
+            if (locator == null) throw new ArgumentNullException(nameof(locator));
+            try
+            {
+                var element = Waiting(timeout).Until(driver =>
+                {
+                    try
+                    {
+                        var el = driver.FindElement(locator);
+                        return el.Displayed ? el : null;
+                    }
+                    catch (NoSuchElementException) { return null; }
+                    catch (StaleElementReferenceException) { return null; }
+                });
+                if (element == null) throw new WebDriverTimeoutException($"Timed out after {timeout}s waiting for element {locator} to be visible.");
+                return element;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Unexpected error while waiting for element {locator} to be visible.", ex);
+            }
+        }
+
+        public static bool IsElementVisible(this By locator, int timeout = 10)
+        {
+            if (locator == null) throw new ArgumentNullException(nameof(locator));
+            try
+            {
+                return Waiting(timeout).Until(driver =>
+                {
+                    try
+                    {
+                        var el = driver.FindElement(locator);
+                        return el != null && el.Displayed;
+                    }
+                    catch (NoSuchElementException) { return false; }
+                    catch (StaleElementReferenceException) { return false; }
+                });
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Unexpected error while checking visibility of {locator}.", ex);
             }
         }
     }

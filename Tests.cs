@@ -19,19 +19,19 @@ namespace TestsProject
             Actions.GoToPage(ort);
             LogIn(user, password);
             Actions.ViewTheElement(locators.PanelDerecho);
-            locators.PanelDerecho.WaitUntilClickeable().Click();
+            locators.PanelDerecho.WaitUntilClickable().Click();
             SeleccionarMateria(materia);
 
             //Actions.ViewTheElement(locators.PanelIzquierdo);
             //locators.PanelIzquierdo.WaitUntilClickeable().Click();
             Actions.ViewTheElement(locators.Asistencia);
-            locators.Asistencia.WaitUntilClickeable().Click();
+            locators.Asistencia.WaitUntilClickable().Click();
             Actions.ViewTheElement(locators.EnviarAsistencia);
-            locators.EnviarAsistencia.WaitUntilClickeable().Click();
+            locators.EnviarAsistencia.WaitUntilClickable().Click();
             Actions.ViewTheElement(locators.Present);
-            locators.Present.WaitUntilClickeable().Click();
+            locators.Present.WaitUntilClickable().Click();
             Actions.ViewTheElement(locators.GuardarAsistencia);
-            locators.GuardarAsistencia.WaitUntilClickeable().Click();
+            locators.GuardarAsistencia.WaitUntilClickable().Click();
             Actions.Sleep(2);
         }
 
@@ -46,7 +46,7 @@ namespace TestsProject
                 _ => throw new ArgumentException($"Materia '{materiaKey}' no reconocida")
             };
             Actions.ViewTheElement(materia);
-            materia.WaitUntilClickeable().Click();
+            materia.WaitUntilClickable().Click();
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace TestsProject
             //Actions.WaitUntilVisible(selectors.TextArea).Clear();
             Actions.SwitchToFrame(locators.IFrame);
             //Actions.SelectOptionByText(selectors.Options, "Option 2");
-            Actions.WaitUntilClickeable(locators.ButtonInFrame).Click();
+            Actions.WaitUntilClickable(locators.ButtonInFrame).Click();
             Actions.WaitForAlertsAndConfirm();
 
         }
@@ -71,10 +71,10 @@ namespace TestsProject
             var password = Environment.GetEnvironmentVariable("PASSWORD") ?? "PASS";
             Actions.WaitUntilVisible(locators.LoginEmail).SendKeys(mail);
             Actions.WaitUntilVisible(locators.LoginPassword).SendKeys(password);
-            Actions.WaitUntilClickeable(locators.Avanti).Click();
-            locators.SpanishLanguage.WaitUntilClickeable().Click();
-            locators.Reservas.WaitUntilClickeable().Click();
-            locators.ReservarTurno.WaitUntilClickeable().Click();
+            Actions.WaitUntilClickable(locators.Avanti).Click();
+            locators.SpanishLanguage.WaitUntilClickable().Click();
+            locators.Reservas.WaitUntilClickable().Click();
+            locators.ReservarTurno.WaitUntilClickable().Click();
 
             var encontreLugar = false; int i = 0;
             while (!encontreLugar && i < 200)
@@ -82,10 +82,10 @@ namespace TestsProject
                 try
                 {
                     var okButton = Actions.WaitUntilVisible(locators.BotonOk, 20);
-                    okButton.WaitUntilClickeable().Click();
+                    okButton.WaitUntilClickable().Click();
                     Actions.Sleep();
                     Actions.Refresh();
-                    Actions.WaitUntilClickeable(locators.ReservarTurno, 15).Click();
+                    Actions.WaitUntilClickable(locators.ReservarTurno, 15).Click();
                     i++;
                 }
                 catch (Exception)
@@ -103,12 +103,12 @@ namespace TestsProject
         }
         private void LogIn(string user, string password)
         {
-            Actions.WaitUntilClickeable(locators.AccederDos).Click();
-            var text = Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id");
-            Assert.That(Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id"), Is.EqualTo("username"));
+            Actions.WaitUntilClickable(locators.AccederDos).Click();
+            var text = Actions.WaitUntilClickable(locators.UserName).GetDomAttribute("id");
+            Assert.That(Actions.WaitUntilClickable(locators.UserName).GetDomAttribute("id"), Is.EqualTo("username"));
             locators.UserName.SendKeys(user);
             locators.Password.SendKeys(password);
-            locators.LogInButton.WaitUntilClickeable().Click();
+            locators.LogInButton.WaitUntilClickable().Click();
         }
     }
 }
