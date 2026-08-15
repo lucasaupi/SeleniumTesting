@@ -23,7 +23,7 @@ namespace Selenium
         public readonly By GuardarAsistencia = By.Id("id_submitbutton");
         // Materias
         public readonly By Programacion3 = By.PartialLinkText("PR3-2025-1");
-        public readonly By ProyectoFinal = By.PartialLinkText("PRF-2025-1");
+        public readonly By Electronica = By.PartialLinkText("Electrónica - 2°Semestre 2026");
         public readonly By TallerProgramacion3 = By.PartialLinkText("TP3-2025-1");
         public readonly By CalidadSoftware = By.PartialLinkText("CSO-2025-1");
 
@@ -44,7 +44,7 @@ namespace Selenium
         public readonly By BotonOk = By.XPath("//button[@type='button' and @class='btn btn-blue' and text()='ok']");
         public readonly By LoginEmail = By.Id("login-email");
         public readonly By LoginPassword = By.Id("login-password");
-        public readonly By Avanti = By.XPath("//button[@type='submit' and contains(@class, 'button primary') and text()='Avanti']");
+        public readonly By Avanti = By.XPath("//button[@type='button' and contains(@class, 'button') and text()='Avanti']");
 
 
     }

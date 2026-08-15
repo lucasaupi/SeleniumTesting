@@ -6,7 +6,7 @@ namespace TestsProject
     [TestFixture]
     public class Tests : TestBase
     {
-        [TestCase("PF")]
+        [TestCase("ELE")]
         [TestCase("P3")]
         [TestCase("TP3")]
         [TestCase("CalidadSoftware")]
@@ -18,8 +18,8 @@ namespace TestsProject
 
             Actions.GoToPage(ort);
             LogIn(user, password);
-            //Actions.ViewTheElement(locators.PanelDerecho);
-            //locators.PanelDerecho.WaitUntilClickeable().Click();
+            Actions.ViewTheElement(locators.PanelDerecho);
+            locators.PanelDerecho.WaitUntilClickeable().Click();
             SeleccionarMateria(materia);
 
             //Actions.ViewTheElement(locators.PanelIzquierdo);
@@ -39,7 +39,7 @@ namespace TestsProject
         {
             By materia = materiaKey switch
             {
-                "PF" => locators.ProyectoFinal,
+                "ELE" => locators.Electronica,
                 "P3" => locators.Programacion3,
                 "TP3" => locators.TallerProgramacion3,
                 "CalidadSoftware" => locators.CalidadSoftware,
@@ -105,7 +105,7 @@ namespace TestsProject
         {
             Actions.WaitUntilClickeable(locators.AccederDos).Click();
             var text = Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id");
-            Assert.IsTrue(Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id").Equals("username"));
+            Assert.That(Actions.WaitUntilClickeable(locators.UserName).GetDomAttribute("id"), Is.EqualTo("username"));
             locators.UserName.SendKeys(user);
             locators.Password.SendKeys(password);
             locators.LogInButton.WaitUntilClickeable().Click();
