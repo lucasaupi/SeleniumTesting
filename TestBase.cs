@@ -8,27 +8,38 @@ namespace TestsProject
     {
         private ChromeDriver driver;
         protected Locators locators;
-        private readonly string path = @"C:\Users\lucas\source\repos\TestsProject\EnvironmentVariables\Variables.env";
+        private readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EnvironmentVariables", "Variables.env");
 
         [SetUp]
         public void SetUp()
         {
-            ChromeOptions options = new ChromeOptions();
-            options.AddArguments("--start-maximized");
-            //options.AddArguments("--blink-settings=imagesEnabled=false");
-            //options.AddArguments("--headless");
-            driver = new ChromeDriver(options);
-            Actions.driver = driver;
-            locators = new Locators(driver);
-            driver.Manage().Window.Maximize();
-            Env.Load(path);
+            try
+            {
+                ChromeOptions options = new ChromeOptions();
+                options.AddArguments("--start-maximized");
+                //options.AddArguments("--blink-settings=imagesEnabled=false");
+                //options.AddArguments("--headless");
+                driver = new ChromeDriver(options);
+                Actions.driver = driver;
+                locators = new Locators(driver);
+
+                Env.Load(path);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR EN SETUP: " + ex.ToString());
+                throw;
+            }
         }
 
         [TearDown]
         public void TearDown()
         {
-            driver.Quit();
-            driver.Dispose();
+            if (driver != null)
+            {
+                driver.Quit();
+                driver.Dispose();
+            }
         }
     }
 }
